@@ -1,5 +1,6 @@
 // Es lo mismo que import express from 'express';
 const express = require('express');
+const path = require('path')
 const cors = require('cors');
 const { dbConnection } = require('./database/config');
 
@@ -24,6 +25,10 @@ app.use( express.json() )
 // Rutas
 app.use('/api/auth', require( './routes/auth') )
 app.use('/api/events', require( './routes/events') )
+
+app.use('*', ( req, res ) => {
+  res.sendFile( path.join( __dirname, 'public/index.html' ) )
+} )
 // TODO: CRUD Eventos
 
 // Escuchar peticiones
